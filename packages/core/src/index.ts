@@ -4,3 +4,4 @@
 export * from './types.js';
 export * from './normalizer.js';
 export * from './lcs.js';
+export * from './diff.js';

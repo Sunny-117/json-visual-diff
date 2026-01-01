@@ -70,53 +70,53 @@
     - **Property 4: 数组差异识别**
     - **Validates: Requirements 1.4**
 
-- [ ] 5. 核心 Diff Engine 实现
-  - [ ] 5.1 实现基础 Diff Engine 类
+- [x] 5. 核心 Diff Engine 实现
+  - [x] 5.1 实现基础 Diff Engine 类
     - 创建 `packages/core/src/diff.ts`
     - 实现 DiffEngine 类构造函数
     - 实现主 diff 方法
     - 实现循环引用检测
     - _Requirements: 1.1, 2.6_
 
-  - [ ] 5.2 实现原始类型比较
+  - [x] 5.2 实现原始类型比较
     - 实现 diffPrimitive 方法
     - 处理 string、number、boolean、null
     - _Requirements: 1.1_
 
-  - [ ] 5.3 实现对象比较
+  - [x] 5.3 实现对象比较
     - 实现 diffObject 方法
     - 递归比较对象属性
     - 识别添加、删除、修改的属性
     - _Requirements: 1.1, 1.3_
 
-  - [ ] 5.4 实现数组比较
+  - [x] 5.4 实现数组比较
     - 实现 diffArray 方法
     - 集成 LCS 算法
     - 支持位置比较模式（可选）
     - _Requirements: 1.4_
 
-  - [ ] 5.5 实现扩展类型比较
+  - [x] 5.5 实现扩展类型比较
     - 实现 diffFunction、diffDate、diffRegExp、diffSymbol 方法
     - 使用 Type Normalizer 进行规范化
     - _Requirements: 2.1, 2.2, 2.3, 2.5_
 
-  - [ ] 5.6 编写核心 Diff Engine 的属性测试
+  - [x] 5.6 编写核心 Diff Engine 的属性测试
     - **Property 1: Diff 结果结构完整性**
     - **Validates: Requirements 1.1, 3.1**
 
-  - [ ] 5.7 编写核心 Diff Engine 的属性测试
+  - [x] 5.7 编写核心 Diff Engine 的属性测试
     - **Property 2: 自反性（Identity）**
     - **Validates: Requirements 1.2**
 
-  - [ ] 5.8 编写核心 Diff Engine 的属性测试
+  - [x] 5.8 编写核心 Diff Engine 的属性测试
     - **Property 3: 嵌套结构递归性**
     - **Validates: Requirements 1.3, 3.6**
 
-  - [ ] 5.9 编写核心 Diff Engine 的属性测试
+  - [x] 5.9 编写核心 Diff Engine 的属性测试
     - **Property 5: 差异类型完整性**
     - **Validates: Requirements 3.2, 3.3, 3.4, 3.5**
 
-  - [ ] 5.10 编写核心 Diff Engine 的属性测试
+  - [x] 5.10 编写核心 Diff Engine 的属性测试
     - **Property 12: 循环引用安全性**
     - **Validates: Requirements 2.6**
 
