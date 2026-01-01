@@ -23,87 +23,97 @@ body {
 .app-header {
   background-color: #2c3e50;
   color: white;
-  padding: 1.5rem 2rem;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-}
-
-.app-header h1 {
-  font-size: 1.75rem;
-  margin-bottom: 0.25rem;
-}
-
-.app-header p {
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
-
-.toolbar {
-  background-color: white;
-  padding: 0.75rem 2rem;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 0.75rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex-shrink: 0;
+  gap: 1rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.header-left h1 {
+  font-size: 1.25rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.toolbar {
+  display: none;
 }
 
 .example-selector {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .example-selector label {
-  font-weight: 600;
-  color: #2c3e50;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
 }
 
 .example-select {
-  padding: 0.5rem 1rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  background-color: white;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
   cursor: pointer;
-  transition: border-color 0.2s;
-  min-width: 200px;
+  transition: all 0.2s;
+  min-width: 160px;
 }
 
 .example-select:hover {
-  border-color: #3498db;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .example-select:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  border-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.example-select option {
+  background-color: #2c3e50;
+  color: white;
 }
 
 .example-description {
-  color: #7f8c8d;
-  font-size: 0.9rem;
-  font-style: italic;
+  display: none;
 }
 
 .file-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.4rem;
   flex-wrap: wrap;
 }
 
 .action-button {
-  padding: 0.5rem 1rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 6px;
-  background-color: white;
-  color: #2c3e50;
-  font-size: 0.9rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
@@ -113,11 +123,9 @@ body {
 }
 
 .action-button:hover:not(:disabled) {
-  background-color: #3498db;
-  color: white;
-  border-color: #3498db;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .action-button:active:not(:disabled) {
@@ -125,7 +133,7 @@ body {
 }
 
 .action-button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -391,18 +399,28 @@ body {
     min-height: 300px;
   }
   
-  .toolbar {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.75rem 1rem;
+  }
+  
+  .header-left {
+    width: 100%;
+  }
+  
+  .header-right {
+    width: 100%;
     flex-direction: column;
     align-items: stretch;
   }
   
   .example-selector {
-    flex-direction: column;
-    align-items: stretch;
+    width: 100%;
   }
   
   .example-select {
-    width: 100%;
+    flex: 1;
   }
   
   .file-actions {
@@ -416,12 +434,8 @@ body {
 }
 
 @media (max-width: 768px) {
-  .app-header h1 {
-    font-size: 1.5rem;
-  }
-  
-  .app-header p {
-    font-size: 0.85rem;
+  .header-left h1 {
+    font-size: 1.1rem;
   }
   
   .result-header {
@@ -450,11 +464,29 @@ body {
 /* 小屏幕优化 */
 @media (max-width: 480px) {
   .app-header {
-    padding: 1rem;
+    padding: 0.5rem 0.75rem;
   }
   
-  .toolbar {
-    padding: 0.5rem 1rem;
+  .header-left h1 {
+    font-size: 1rem;
+  }
+  
+  .header-right {
+    gap: 0.5rem;
+  }
+  
+  .example-selector label {
+    font-size: 0.85rem;
+  }
+  
+  .example-select {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.6rem;
+  }
+  
+  .action-button {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.6rem;
   }
   
   .result-stats {

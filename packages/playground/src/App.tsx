@@ -209,62 +209,57 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>JSON Visual Diff Playground</h1>
-        <p>比较两个 JSON 对象的差异</p>
+        <div className="header-left">
+          <h1>JSON Visual Diff Playground</h1>
+        </div>
+        <div className="header-right">
+          <div className="example-selector">
+            <label htmlFor="example-select">示例:</label>
+            <select
+              id="example-select"
+              value={selectedExample}
+              onChange={(e) => handleExampleChange(e.target.value)}
+              className="example-select"
+            >
+              <option value="">-- 选择示例 --</option>
+              {examples.map((example) => (
+                <option key={example.id} value={example.id}>
+                  {example.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+          <div className="file-actions">
+            <button className="action-button" onClick={handleImportLeft} title="导入 JSON 文件到左侧">
+              📁 导入左侧
+            </button>
+            <button className="action-button" onClick={handleImportRight} title="导入 JSON 文件到右侧">
+              📁 导入右侧
+            </button>
+            <button 
+              className="action-button" 
+              onClick={handleExportDiff} 
+              disabled={!diffResult}
+              title="导出 diff 结果为 JSON"
+            >
+              💾 导出 JSON
+            </button>
+            <button 
+              className="action-button" 
+              onClick={handleExportHTML} 
+              disabled={!diffResult}
+              title="导出 diff 结果为 HTML"
+            >
+              💾 导出 HTML
+            </button>
+            <EditorSettings
+              preferences={preferences}
+              onPreferencesChange={setPreferences}
+            />
+          </div>
+        </div>
       </header>
-
-      <div className="toolbar">
-        <div className="example-selector">
-          <label htmlFor="example-select">选择示例:</label>
-          <select
-            id="example-select"
-            value={selectedExample}
-            onChange={(e) => handleExampleChange(e.target.value)}
-            className="example-select"
-          >
-            <option value="">-- 选择一个示例 --</option>
-            {examples.map((example) => (
-              <option key={example.id} value={example.id}>
-                {example.name}
-              </option>
-            ))}
-          </select>
-          {selectedExample && (
-            <span className="example-description">
-              {getExampleById(selectedExample)?.description}
-            </span>
-          )}
-        </div>
-        
-        <div className="file-actions">
-          <button className="action-button" onClick={handleImportLeft} title="导入 JSON 文件到左侧">
-            📁 导入左侧
-          </button>
-          <button className="action-button" onClick={handleImportRight} title="导入 JSON 文件到右侧">
-            📁 导入右侧
-          </button>
-          <button 
-            className="action-button" 
-            onClick={handleExportDiff} 
-            disabled={!diffResult}
-            title="导出 diff 结果为 JSON"
-          >
-            💾 导出 JSON
-          </button>
-          <button 
-            className="action-button" 
-            onClick={handleExportHTML} 
-            disabled={!diffResult}
-            title="导出 diff 结果为 HTML"
-          >
-            💾 导出 HTML
-          </button>
-          <EditorSettings
-            preferences={preferences}
-            onPreferencesChange={setPreferences}
-          />
-        </div>
-      </div>
 
       <div className="main-layout">
         <div className="editors-panel">
