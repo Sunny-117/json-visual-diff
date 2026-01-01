@@ -1,7 +1,7 @@
 {
   "name": "@json-visual-diff/core",
   "version": "0.0.1",
-  "description": "JSON Visual Diff 核心算法库",
+  "description": "核心差异算法引擎，提供高性能的 JSON 对象比较功能，支持智能数组对比、扩展类型和循环引用检测",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

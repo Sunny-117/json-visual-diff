@@ -1,7 +1,7 @@
 {
   "name": "@json-visual-diff/dom-renderer",
   "version": "0.0.1",
-  "description": "JSON Visual Diff DOM 渲染器",
+  "description": "DOM 渲染器，将差异结果渲染为可交互的浏览器 DOM 元素，支持主题切换、无障碍访问和键盘导航",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

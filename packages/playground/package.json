@@ -1,7 +1,7 @@
 {
   "name": "@json-visual-diff/playground",
   "version": "0.0.1",
-  "description": "JSON Visual Diff 演示应用",
+  "description": "交互式演示应用，集成 Monaco Editor，提供实时编辑预览、响应式设计和完整的差异对比体验",
   "type": "module",
   "private": true,
   "scripts": {
