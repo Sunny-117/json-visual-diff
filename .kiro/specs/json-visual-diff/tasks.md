@@ -14,59 +14,59 @@
   - 创建基础目录结构（packages/core, packages/dom-renderer, packages/playground）
   - _Requirements: 7.1, 7.8_
 
-- [ ] 2. 核心类型定义
-  - [ ] 2.1 定义核心类型和接口
+- [-] 2. 核心类型定义
+  - [x] 2.1 定义核心类型和接口
     - 创建 `packages/core/src/types.ts`
     - 定义 DiffType、ValueType 枚举
     - 定义 DiffNode、DiffResult、DiffOptions 接口
     - 定义 Renderer 接口
     - _Requirements: 3.1, 4.1_
 
-  - [ ] 2.2 编写类型定义的单元测试
+  - [x] 2.2 编写类型定义的单元测试
     - 验证类型导出正确
     - 验证接口结构完整
     - _Requirements: 3.1_
 
-- [ ] 3. Type Normalizer 实现
-  - [ ] 3.1 实现类型规范化器
+- [x] 3. Type Normalizer 实现
+  - [x] 3.1 实现类型规范化器
     - 创建 `packages/core/src/normalizer.ts`
     - 实现 getValueType 方法
     - 实现各类型的 normalize 方法（Function、Date、RegExp、Symbol）
     - 实现 serialize 方法
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-  - [ ] 3.2 编写 Type Normalizer 的属性测试
+  - [x] 3.2 编写 Type Normalizer 的属性测试
     - **Property 8: 函数比较一致性**
     - **Validates: Requirements 2.1**
 
-  - [ ] 3.3 编写 Type Normalizer 的属性测试
+  - [x] 3.3 编写 Type Normalizer 的属性测试
     - **Property 9: Date 比较通过时间戳**
     - **Validates: Requirements 2.2**
 
-  - [ ] 3.4 编写 Type Normalizer 的属性测试
+  - [x] 3.4 编写 Type Normalizer 的属性测试
     - **Property 10: RegExp 比较通过模式和标志**
     - **Validates: Requirements 2.3**
 
-  - [ ] 3.5 编写 Type Normalizer 的属性测试
+  - [x] 3.5 编写 Type Normalizer 的属性测试
     - **Property 11: 特殊值处理**
     - **Validates: Requirements 2.4, 2.5**
 
-- [ ] 4. LCS 数组 Diff 算法
-  - [ ] 4.1 实现 LCS 算法
+- [x] 4. LCS 数组 Diff 算法
+  - [x] 4.1 实现 LCS 算法
     - 创建 `packages/core/src/lcs.ts`
     - 实现 computeLCS 方法（动态规划）
     - 实现 backtrack 方法生成 diff 操作序列
     - 实现 isEqual 深度比较方法
     - _Requirements: 1.4_
 
-  - [ ] 4.2 编写 LCS 算法的单元测试
+  - [x] 4.2 编写 LCS 算法的单元测试
     - 测试空数组
     - 测试相同数组
     - 测试完全不同的数组
     - 测试部分重叠的数组
     - _Requirements: 1.4_
 
-  - [ ] 4.3 编写 LCS 算法的属性测试
+  - [x] 4.3 编写 LCS 算法的属性测试
     - **Property 4: 数组差异识别**
     - **Validates: Requirements 1.4**
 

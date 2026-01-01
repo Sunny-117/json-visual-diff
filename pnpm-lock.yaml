@@ -11,6 +11,9 @@ importers:
       '@types/node':
         specifier: ^22.10.5
         version: 22.19.3
+      fast-check:
+        specifier: ^3.23.2
+        version: 3.23.2
       oxlint:
         specifier: ^0.15.6
         version: 0.15.15
