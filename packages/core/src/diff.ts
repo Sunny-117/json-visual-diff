@@ -9,7 +9,6 @@ import { LCSArrayDiff } from './lcs.js';
 export class DiffEngine {
   private options: Required<DiffOptions>;
   private circularRefs: WeakSet<object>;
-  private currentDepth: number;
   
   constructor(options?: DiffOptions) {
     this.options = {
@@ -19,7 +18,6 @@ export class DiffEngine {
       detectCircular: options?.detectCircular ?? true,
     };
     this.circularRefs = new WeakSet();
-    this.currentDepth = 0;
   }
   
   /**
@@ -33,7 +31,7 @@ export class DiffEngine {
     // 检测循环引用
     if (this.options.detectCircular) {
       if (this.isCircular(oldValue) || this.isCircular(newValue)) {
-        return this.createCircularNode(path, oldValue, newValue);
+        return this.createCircularNode(path);
       }
     }
     
@@ -58,7 +56,7 @@ export class DiffEngine {
     
     // 类型不同，直接标记为修改
     if (oldType !== newType) {
-      return this.createModifiedNode(path, oldValue, newValue, oldType, newType);
+      return this.createModifiedNode(path, oldValue, newValue, oldType);
     }
     
     // 根据类型选择比较策略
@@ -99,11 +97,9 @@ export class DiffEngine {
   /**
    * 创建循环引用节点
    * @param path 路径
-   * @param oldValue 旧值
-   * @param newValue 新值
    * @returns DiffNode
    */
-  private createCircularNode(path: string[], oldValue: any, newValue: any): DiffNode {
+  private createCircularNode(path: string[]): DiffNode {
     return {
       type: DiffType.MODIFIED,
       path,
@@ -137,7 +133,6 @@ export class DiffEngine {
    * @param oldValue 旧值
    * @param newValue 新值
    * @param oldType 旧类型
-   * @param newType 新类型
    * @returns DiffNode
    */
   private createModifiedNode(
@@ -145,7 +140,6 @@ export class DiffEngine {
     oldValue: any,
     newValue: any,
     oldType: ValueType,
-    newType: ValueType
   ): DiffNode {
     return {
       type: DiffType.MODIFIED,
@@ -478,7 +472,6 @@ export class DiffEngine {
   compute(oldValue: any, newValue: any): DiffResult {
     // 重置循环引用检测
     this.circularRefs = new WeakSet();
-    this.currentDepth = 0;
     
     // 计算 diff
     const root = this.diff(oldValue, newValue);
