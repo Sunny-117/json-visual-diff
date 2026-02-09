@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
-import { validateJSON, formatJSON } from "./jsonValidator";
+import { validateJSON, formatJSON } from "../utils/jsonValidator";
 
 /**
  * Feature: json-visual-diff, Property 18: JSON 验证正确性

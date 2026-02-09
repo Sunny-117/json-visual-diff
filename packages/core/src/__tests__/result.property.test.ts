@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
-import { diff } from "./diff";
-import { DiffResultBuilder } from "./result";
-import { DiffType, DiffNode } from "./types";
+import { diff } from "../diff";
+import { DiffResultBuilder } from "../result";
+import { DiffType, DiffNode } from "../types";
 
 /**
  * Diff Result Builder 属性测试

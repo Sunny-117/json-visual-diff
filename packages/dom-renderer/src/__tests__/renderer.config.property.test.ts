@@ -4,9 +4,11 @@
  * Validates: Requirements 5.8
  */
 
+
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
-import { DOMRenderer } from "./renderer";
+import { DOMRenderer } from "../renderer";
+import { DiffType, ValueType } from "@json-visual-diff/core";
 import type { DiffResult, DiffNode, RendererConfig } from "@json-visual-diff/core";
 
 describe("DOM Renderer Config Property Tests", () => {
@@ -18,9 +20,9 @@ describe("DOM Renderer Config Property Tests", () => {
     // Feature: json-visual-diff, Property 16: 渲染配置响应性
 
     const simpleNodeArb: fc.Arbitrary<DiffNode> = fc.record({
-      type: fc.constantFrom("added", "deleted", "modified", "unchanged"),
+      type: fc.constantFrom(DiffType.ADDED, DiffType.DELETED, DiffType.MODIFIED, DiffType.UNCHANGED),
       path: fc.constant([]),
-      valueType: fc.constantFrom("primitive", "string"),
+      valueType: fc.constantFrom(ValueType.PRIMITIVE, ValueType.OBJECT),
       oldValue: fc.string(),
       newValue: fc.string(),
     });
@@ -72,9 +74,9 @@ describe("DOM Renderer Config Property Tests", () => {
     });
 
     const nodeArb: fc.Arbitrary<DiffNode> = fc.record({
-      type: fc.constantFrom("added", "deleted", "modified", "unchanged"),
+      type: fc.constantFrom(DiffType.ADDED, DiffType.DELETED, DiffType.MODIFIED, DiffType.UNCHANGED),
       path: fc.constant(["test"]),
-      valueType: fc.constant("primitive"),
+      valueType: fc.constant(ValueType.PRIMITIVE),
       oldValue: fc.constant("old"),
       newValue: fc.constant("new"),
     });
@@ -108,9 +110,9 @@ describe("DOM Renderer Config Property Tests", () => {
     // Feature: json-visual-diff, Property 16: 渲染配置响应性
 
     const unchangedNodeArb: fc.Arbitrary<DiffNode> = fc.record({
-      type: fc.constant("unchanged"),
+      type: fc.constant(DiffType.UNCHANGED),
       path: fc.array(fc.string({ minLength: 1, maxLength: 10 }), { maxLength: 3 }),
-      valueType: fc.constantFrom("primitive", "string", "number"),
+      valueType: fc.constantFrom(ValueType.PRIMITIVE, ValueType.OBJECT, ValueType.ARRAY),
       oldValue: fc.anything(),
       newValue: fc.anything(),
     });
@@ -152,9 +154,9 @@ describe("DOM Renderer Config Property Tests", () => {
 
     const indentArb = fc.integer({ min: 0, max: 8 });
     const nodeArb: fc.Arbitrary<DiffNode> = fc.record({
-      type: fc.constantFrom("added", "deleted", "modified"),
+      type: fc.constantFrom(DiffType.ADDED, DiffType.DELETED, DiffType.MODIFIED),
       path: fc.array(fc.string({ minLength: 1, maxLength: 10 }), { minLength: 1, maxLength: 5 }),
-      valueType: fc.constant("primitive"),
+      valueType: fc.constant(ValueType.PRIMITIVE),
       oldValue: fc.constant("old"),
       newValue: fc.constant("new"),
     });
@@ -191,17 +193,17 @@ describe("DOM Renderer Config Property Tests", () => {
     const createNestedNode = (depth: number): DiffNode => {
       if (depth === 0) {
         return {
-          type: "modified",
+          type: DiffType.MODIFIED,
           path: Array(depth).fill("level"),
-          valueType: "primitive",
+          valueType: ValueType.PRIMITIVE,
           oldValue: "old",
           newValue: "new",
         };
       }
       return {
-        type: "modified",
+        type: DiffType.MODIFIED,
         path: Array(depth).fill("level"),
-        valueType: "object",
+        valueType: ValueType.OBJECT,
         children: [createNestedNode(depth - 1)],
       };
     };

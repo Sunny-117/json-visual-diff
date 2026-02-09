@@ -4,9 +4,10 @@
  * Validates: Requirements 5.2
  */
 
+
 import { describe, it, expect, beforeEach } from "vitest";
 import fc from "fast-check";
-import { DOMRenderer } from "./renderer";
+import { DOMRenderer } from "../renderer";
 import type { DiffResult, DiffNode, DiffType, ValueType } from "@json-visual-diff/core";
 
 describe("DOM Renderer Property Tests", () => {

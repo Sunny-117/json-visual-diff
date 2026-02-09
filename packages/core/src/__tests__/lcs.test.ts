@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { LCSArrayDiff } from "./lcs";
+import { LCSArrayDiff } from "../lcs";
 
 describe("LCS 数组 Diff 算法", () => {
   describe("computeLCS", () => {

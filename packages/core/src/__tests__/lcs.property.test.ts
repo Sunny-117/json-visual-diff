@@ -1,6 +1,6 @@
 import { describe, it } from "vitest";
 import fc from "fast-check";
-import { LCSArrayDiff } from "./lcs";
+import { LCSArrayDiff } from "../lcs";
 
 /**
  * 属性测试：数组差异识别

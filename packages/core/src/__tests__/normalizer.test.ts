@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, it } from "vitest";
 import fc from "fast-check";
-import { TypeNormalizer } from "./normalizer";
-import { ValueType } from "./types";
+import { TypeNormalizer } from "../normalizer";
+import { ValueType } from "../types";
 
 describe("Type Normalizer - Property Tests", () => {
   /**

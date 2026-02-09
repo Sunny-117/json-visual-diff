@@ -1,12 +1,15 @@
+/// <reference lib="dom" />
 /**
  * DOM Renderer 可访问性属性测试
  * Feature: json-visual-diff, Property 17: 可访问性属性存在
  * Validates: Requirements 5.9
  */
 
+
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
-import { DOMRenderer } from "./renderer";
+import { DOMRenderer } from "../renderer";
+import { DiffType, ValueType } from "@json-visual-diff/core";
 import type { DiffResult, DiffNode } from "@json-visual-diff/core";
 
 describe("DOM Renderer Accessibility Property Tests", () => {
@@ -18,9 +21,9 @@ describe("DOM Renderer Accessibility Property Tests", () => {
     // Feature: json-visual-diff, Property 17: 可访问性属性存在
 
     const simpleNodeArb: fc.Arbitrary<DiffNode> = fc.record({
-      type: fc.constantFrom("added", "deleted", "modified", "unchanged"),
-      path: fc.constant([]),
-      valueType: fc.constantFrom("primitive", "string", "number"),
+      type: fc.constantFrom(DiffType.ADDED, DiffType.DELETED, DiffType.MODIFIED, DiffType.UNCHANGED),
+      path: fc.constant([] as string[]),
+      valueType: fc.constantFrom(ValueType.PRIMITIVE, ValueType.OBJECT, ValueType.ARRAY),
       oldValue: fc.anything(),
       newValue: fc.anything(),
     });
@@ -58,9 +61,9 @@ describe("DOM Renderer Accessibility Property Tests", () => {
     // Feature: json-visual-diff, Property 17: 可访问性属性存在
 
     const simpleNodeArb: fc.Arbitrary<DiffNode> = fc.record({
-      type: fc.constantFrom("added", "deleted", "modified", "unchanged"),
-      path: fc.constant([]),
-      valueType: fc.constantFrom("primitive", "string"),
+      type: fc.constantFrom(DiffType.ADDED, DiffType.DELETED, DiffType.MODIFIED, DiffType.UNCHANGED),
+      path: fc.constant([] as string[]),
+      valueType: fc.constantFrom(ValueType.PRIMITIVE, ValueType.OBJECT),
       oldValue: fc.string(),
       newValue: fc.string(),
     });
@@ -97,9 +100,9 @@ describe("DOM Renderer Accessibility Property Tests", () => {
     // Feature: json-visual-diff, Property 17: 可访问性属性存在
 
     const nodeArb: fc.Arbitrary<DiffNode> = fc.record({
-      type: fc.constantFrom("added", "deleted", "modified", "unchanged"),
+      type: fc.constantFrom(DiffType.ADDED, DiffType.DELETED, DiffType.MODIFIED, DiffType.UNCHANGED),
       path: fc.array(fc.string({ minLength: 1, maxLength: 10 }), { maxLength: 5 }),
-      valueType: fc.constantFrom("primitive", "string", "number", "object", "array"),
+      valueType: fc.constantFrom(ValueType.PRIMITIVE, ValueType.OBJECT, ValueType.ARRAY),
       oldValue: fc.anything(),
       newValue: fc.anything(),
     });
@@ -138,9 +141,9 @@ describe("DOM Renderer Accessibility Property Tests", () => {
 
     const diffResultArb: fc.Arbitrary<DiffResult> = fc.record({
       root: fc.record({
-        type: fc.constant("modified"),
-        path: fc.constant([]),
-        valueType: fc.constant("object"),
+        type: fc.constant(DiffType.MODIFIED),
+        path: fc.constant([] as string[]),
+        valueType: fc.constant(ValueType.OBJECT),
       }),
       stats: statsArb,
     });
@@ -180,9 +183,9 @@ describe("DOM Renderer Accessibility Property Tests", () => {
 
     const diffResultArb: fc.Arbitrary<DiffResult> = fc.record({
       root: fc.record({
-        type: fc.constant("modified"),
-        path: fc.constant([]),
-        valueType: fc.constant("object"),
+        type: fc.constant(DiffType.MODIFIED),
+        path: fc.constant([] as string[]),
+        valueType: fc.constant(ValueType.OBJECT),
       }),
       stats: statsArb,
     });
@@ -233,17 +236,17 @@ describe("DOM Renderer Accessibility Property Tests", () => {
     // Feature: json-visual-diff, Property 17: 可访问性属性存在
 
     const nodeWithChildrenArb: fc.Arbitrary<DiffNode> = fc.record({
-      type: fc.constantFrom("added", "deleted", "modified"),
+      type: fc.constantFrom(DiffType.ADDED, DiffType.DELETED, DiffType.MODIFIED),
       path: fc.array(fc.string({ minLength: 1, maxLength: 10 }), { minLength: 1, maxLength: 3 }),
-      valueType: fc.constantFrom("object", "array"),
+      valueType: fc.constantFrom(ValueType.OBJECT, ValueType.ARRAY),
       children: fc.array(
         fc.record({
-          type: fc.constantFrom("added", "deleted", "modified", "unchanged"),
+          type: fc.constantFrom(DiffType.ADDED, DiffType.DELETED, DiffType.MODIFIED, DiffType.UNCHANGED),
           path: fc.array(fc.string({ minLength: 1, maxLength: 10 }), {
             minLength: 2,
             maxLength: 4,
           }),
-          valueType: fc.constant("primitive"),
+          valueType: fc.constant(ValueType.PRIMITIVE),
           oldValue: fc.anything(),
           newValue: fc.anything(),
         }),
@@ -288,17 +291,17 @@ describe("DOM Renderer Accessibility Property Tests", () => {
     // Feature: json-visual-diff, Property 17: 可访问性属性存在
 
     const nodeWithChildrenArb: fc.Arbitrary<DiffNode> = fc.record({
-      type: fc.constantFrom("modified", "added"),
+      type: fc.constantFrom(DiffType.MODIFIED, DiffType.ADDED),
       path: fc.array(fc.string({ minLength: 1, maxLength: 10 }), { maxLength: 2 }),
-      valueType: fc.constantFrom("object", "array"),
+      valueType: fc.constantFrom(ValueType.OBJECT, ValueType.ARRAY),
       children: fc.array(
         fc.record({
-          type: fc.constantFrom("added", "deleted", "modified", "unchanged"),
+          type: fc.constantFrom(DiffType.ADDED, DiffType.DELETED, DiffType.MODIFIED, DiffType.UNCHANGED),
           path: fc.array(fc.string({ minLength: 1, maxLength: 10 }), {
             minLength: 1,
             maxLength: 3,
           }),
-          valueType: fc.constant("primitive"),
+          valueType: fc.constant(ValueType.PRIMITIVE),
           oldValue: fc.anything(),
           newValue: fc.anything(),
         }),

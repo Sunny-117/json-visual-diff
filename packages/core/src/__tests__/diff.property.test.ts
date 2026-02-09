@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
-import { diff } from "./diff";
-import { DiffType, ValueType } from "./types";
+import { diff } from "../diff";
+import { DiffType, ValueType } from "../types";
 
 /**
  * 核心 Diff Engine 属性测试
