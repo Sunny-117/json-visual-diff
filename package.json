@@ -11,9 +11,14 @@
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "typecheck": "pnpm -r typecheck",
-    "dev": "pnpm --filter ./packages/playground dev"
+    "dev": "pnpm --filter ./packages/playground dev",
+    "clean": "pnpm -r exec rm -rf dist && rm -rf node_modules/.cache",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "./scripts/release.sh"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.0",
     "@types/node": "^22.10.5",
     "fast-check": "^3.23.2",
     "oxfmt": "^0.21.0",
