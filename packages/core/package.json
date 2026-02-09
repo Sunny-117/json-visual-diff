@@ -24,6 +24,9 @@
       "require": "./dist/index.cjs"
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsdown",
     "build:watch": "tsdown --watch",
@@ -35,8 +38,5 @@
     "fast-check": "^3.22.0",
     "typescript": "^5.7.3",
     "vitest": "^2.1.8"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

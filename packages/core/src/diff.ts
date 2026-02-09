@@ -292,10 +292,7 @@ export class DiffEngine {
             break;
           case "modify":
             // 元素被修改，递归比较内部差异
-            const modifyChildDiff = this.diff(op.value, op.newValue, [
-              ...path,
-              String(newIndex),
-            ]);
+            const modifyChildDiff = this.diff(op.value, op.newValue, [...path, String(newIndex)]);
             children.push(modifyChildDiff);
             oldIndex++;
             newIndex++;
