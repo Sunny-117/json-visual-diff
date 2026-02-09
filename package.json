@@ -1,6 +1,5 @@
 {
   "name": "json-visual-diff",
-  "version": "0.0.1",
   "private": true,
   "description": "一个强大且灵活的 JSON 可视化差异对比 SDK，采用可插拔的渲染器架构设计，支持实时编辑预览和多种扩展类型",
   "scripts": {
