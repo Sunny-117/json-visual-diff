@@ -30,8 +30,8 @@ describe("LCS 数组 Diff 算法 - 属性测试", () => {
           }
         }
 
-        // 属性 2: 操作类型应该只包含 add, delete, keep
-        const validTypes = ["add", "delete", "keep"];
+        // 属性 2: 操作类型应该只包含 add, delete, keep, modify
+        const validTypes = ["add", "delete", "keep", "modify"];
         const allTypesValid = ops.every((op) => validTypes.includes(op.type));
 
         if (!allTypesValid) {
@@ -125,6 +125,9 @@ function applyOps(arr1: any[], ops: any[]): any[] {
   for (const op of ops) {
     if (op.type === "keep" || op.type === "add") {
       result.push(op.value);
+    } else if (op.type === "modify") {
+      // modify 操作使用新值
+      result.push(op.newValue);
     }
     // delete 操作不添加到结果中
   }

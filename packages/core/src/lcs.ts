@@ -140,6 +140,95 @@ export class LCSArrayDiff {
    */
   static diff<T>(arr1: T[], arr2: T[]): ArrayDiffOp[] {
     const dp = this.computeLCS(arr1, arr2);
-    return this.backtrack(arr1, arr2, dp, arr1.length, arr2.length);
+    const ops = this.backtrack(arr1, arr2, dp, arr1.length, arr2.length);
+    return this.mergeDeleteAddToModify(ops);
+  }
+
+  /**
+   * 将相邻的 delete + add 操作合并为 modify 操作
+   * 当两个元素结构相似（同类型的对象或数组）时，应该显示为修改而非删除+添加
+   * @param ops 原始操作序列
+   * @returns 优化后的操作序列
+   */
+  static mergeDeleteAddToModify(ops: ArrayDiffOp[]): ArrayDiffOp[] {
+    const result: ArrayDiffOp[] = [];
+    let i = 0;
+
+    while (i < ops.length) {
+      const current = ops[i];
+
+      // 查找连续的 delete 操作
+      if (current.type === "delete") {
+        const deleteOps: ArrayDiffOp[] = [];
+        while (i < ops.length && ops[i].type === "delete") {
+          deleteOps.push(ops[i]);
+          i++;
+        }
+
+        // 查找紧随其后的连续 add 操作
+        const addOps: ArrayDiffOp[] = [];
+        while (i < ops.length && ops[i].type === "add") {
+          addOps.push(ops[i]);
+          i++;
+        }
+
+        // 尝试配对 delete 和 add 操作
+        const minLen = Math.min(deleteOps.length, addOps.length);
+        for (let j = 0; j < minLen; j++) {
+          const delOp = deleteOps[j];
+          const addOp = addOps[j];
+
+          // 如果两个值是同类型的对象或数组，合并为 modify
+          if (this.canMergeToModify(delOp.value, addOp.value)) {
+            result.push({
+              type: "modify",
+              index: addOp.index,
+              value: delOp.value,
+              newValue: addOp.value,
+            });
+          } else {
+            // 无法合并，保持原样
+            result.push(delOp);
+            result.push(addOp);
+          }
+        }
+
+        // 处理剩余的 delete 操作
+        for (let j = minLen; j < deleteOps.length; j++) {
+          result.push(deleteOps[j]);
+        }
+
+        // 处理剩余的 add 操作
+        for (let j = minLen; j < addOps.length; j++) {
+          result.push(addOps[j]);
+        }
+      } else {
+        result.push(current);
+        i++;
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * 判断两个值是否可以合并为 modify 操作
+   * 条件：两个值都是对象或都是数组
+   * @param oldValue 旧值
+   * @param newValue 新值
+   * @returns 是否可以合并
+   */
+  static canMergeToModify(oldValue: any, newValue: any): boolean {
+    // null 和 undefined 不合并
+    if (oldValue == null || newValue == null) return false;
+
+    const oldType = TypeNormalizer.getValueType(oldValue);
+    const newType = TypeNormalizer.getValueType(newValue);
+
+    // 类型必须相同
+    if (oldType !== newType) return false;
+
+    // 只有对象和数组才合并为 modify
+    return oldType === "object" || oldType === "array";
   }
 }

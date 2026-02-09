@@ -501,9 +501,9 @@ export class DOMRenderer implements Renderer<HTMLElement> {
       case "boolean":
         return String(value);
       case "object":
-        return "{...}";
+        return this.formatComplexValue(value);
       case "array":
-        return "[...]";
+        return this.formatComplexValue(value);
       case "function":
         return "function() {...}";
       case "date":
@@ -515,6 +515,57 @@ export class DOMRenderer implements Renderer<HTMLElement> {
       default:
         return JSON.stringify(value);
     }
+  }
+
+  /**
+   * 格式化复杂数据结构（对象或数组）为 JSON 字符串
+   */
+  private formatComplexValue(value: any): string {
+    try {
+      return JSON.stringify(value, this.createJsonReplacer(), 0);
+    } catch {
+      // 处理循环引用等异常情况
+      return Array.isArray(value) ? "[...]" : "{...}";
+    }
+  }
+
+  /**
+   * 创建 JSON.stringify 的 replacer 函数
+   * 用于处理特殊类型（Date, RegExp, Function, Symbol 等）
+   */
+  private createJsonReplacer(): (key: string, value: any) => any {
+    const seen = new WeakSet();
+    return (_key: string, value: any) => {
+      // 处理循环引用
+      if (typeof value === "object" && value !== null) {
+        if (seen.has(value)) {
+          return "[Circular]";
+        }
+        seen.add(value);
+      }
+
+      // 处理特殊类型
+      if (value instanceof Date) {
+        return value.toISOString();
+      }
+      if (value instanceof RegExp) {
+        return value.toString();
+      }
+      if (typeof value === "function") {
+        return "[Function]";
+      }
+      if (typeof value === "symbol") {
+        return value.toString();
+      }
+      if (typeof value === "bigint") {
+        return value.toString() + "n";
+      }
+      if (value === undefined) {
+        return "[undefined]";
+      }
+
+      return value;
+    };
   }
 
   /**
